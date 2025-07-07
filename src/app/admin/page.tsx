@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { AdminShiftSlot, StaffShiftWish, FinalShift } from '@/types';
 import ShiftCalendar from '@/components/ShiftCalendar';
 import TimelineSelector from '@/components/TimelineSelector';
+import WeeklyTemplate from '@/components/WeeklyTemplate';
 
 export default function AdminPage() {
   const [user, setUser] = useState<any>(null);
@@ -74,6 +75,38 @@ export default function AdminPage() {
       console.error('Error fetching data:', error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleApplyWeeklyTemplate = async (templateSlots: Partial<AdminShiftSlot>[]) => {
+    try {
+      const token = localStorage.getItem('token');
+      const promises = templateSlots.map(slotData => 
+        fetch('/api/admin/slots', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(slotData),
+        })
+      );
+
+      const responses = await Promise.all(promises);
+      const results = await Promise.all(responses.map(res => res.json()));
+      
+      const successCount = results.filter(result => result.success).length;
+      const failCount = results.length - successCount;
+      
+      if (successCount > 0) {
+        alert(`${successCount}個のシフト枠が作成されました${failCount > 0 ? ` (${failCount}件失敗)` : ''}`);
+        fetchData(); // Refresh data
+      } else {
+        alert('全てのシフト枠作成に失敗しました');
+      }
+    } catch (error) {
+      console.error('Weekly template application failed:', error);
+      throw error;
     }
   };
 
@@ -185,11 +218,16 @@ export default function AdminPage() {
             />
           </div>
 
+          {/* 週次固定シフトテンプレート */}
+          <div className="mb-8">
+            <WeeklyTemplate onApplyTemplate={handleApplyWeeklyTemplate} />
+          </div>
+
           {/* シフト枠作成 - フル幅で表示 */}
           <div className="mb-8 bg-white overflow-hidden shadow rounded-lg">
             <div className="px-4 py-5 sm:p-6">
               <h3 className="text-lg leading-6 font-medium text-gray-900 mb-6">
-                シフト枠作成
+                個別シフト枠作成
               </h3>
               <CreateSlotForm onSubmit={handleCreateSlot} />
             </div>
