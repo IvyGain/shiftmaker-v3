@@ -44,9 +44,9 @@ export default function EmployeePage() {
       const endDate = new Date(selectedDate);
       endDate.setDate(endDate.getDate() + 6);
 
-      // Fetch calendar data (use mock for development)
+      // Fetch calendar data (use real API)
       const calendarResponse = await fetch(
-        `/api/calendar/view-mock?startDate=${startDate.toISOString().split('T')[0]}&endDate=${endDate.toISOString().split('T')[0]}`,
+        `/api/calendar/view?startDate=${startDate.toISOString().split('T')[0]}&endDate=${endDate.toISOString().split('T')[0]}`,
         { headers }
       );
       const calendarData = await calendarResponse.json();
@@ -65,7 +65,7 @@ export default function EmployeePage() {
   const handleSubmitWish = async (slotId: string, startTime: string, endTime: string) => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('/api/wishes-mock', {
+      const response = await fetch('/api/wishes', {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,

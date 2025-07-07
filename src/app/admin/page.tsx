@@ -42,15 +42,15 @@ export default function AdminPage() {
         'Content-Type': 'application/json',
       };
 
-      // Fetch admin slots (use mock for development)
-      const slotsResponse = await fetch('/api/admin/slots-mock', { headers });
+      // Fetch admin slots (use real API)
+      const slotsResponse = await fetch('/api/admin/slots', { headers });
       const slotsData = await slotsResponse.json();
       if (slotsData.success) {
         setAdminSlots(slotsData.data);
       }
 
-      // Fetch wishes for selected date (use mock for development)
-      const wishesResponse = await fetch(`/api/admin/wishes-mock?targetDate=${selectedDate}`, { headers });
+      // Fetch wishes for selected date (use real API)
+      const wishesResponse = await fetch(`/api/admin/wishes?targetDate=${selectedDate}`, { headers });
       const wishesData = await wishesResponse.json();
       if (wishesData.success) {
         setWishes(wishesData.data);
@@ -63,7 +63,7 @@ export default function AdminPage() {
       endDate.setMonth(endDate.getMonth() + 2); // Next 2 months
       
       const calendarResponse = await fetch(
-        `/api/calendar/view-mock?startDate=${startDate.toISOString().split('T')[0]}&endDate=${endDate.toISOString().split('T')[0]}`,
+        `/api/calendar/view?startDate=${startDate.toISOString().split('T')[0]}&endDate=${endDate.toISOString().split('T')[0]}`,
         { headers }
       );
       const calendarData = await calendarResponse.json();
@@ -80,7 +80,7 @@ export default function AdminPage() {
   const handleCreateSlot = async (slotData: Partial<AdminShiftSlot>) => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('/api/admin/slots-mock', {
+      const response = await fetch('/api/admin/slots', {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -105,7 +105,7 @@ export default function AdminPage() {
   const handleFinalizeShift = async (slotId: string, employeeId: string) => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('/api/admin/finalize-mock', {
+      const response = await fetch('/api/admin/finalize', {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -172,7 +172,7 @@ export default function AdminPage() {
                 // 選択された日付の希望も再取得
                 const token = localStorage.getItem('token');
                 if (token) {
-                  fetch(`/api/admin/wishes-mock?targetDate=${date}`, {
+                  fetch(`/api/admin/wishes?targetDate=${date}`, {
                     headers: { 'Authorization': `Bearer ${token}` }
                   })
                   .then(res => res.json())

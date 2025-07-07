@@ -16,8 +16,8 @@ export default function LoginPage() {
     setError('');
 
     try {
-      // 開発中はモックAPIを使用（Lark Baseが未設定の場合）
-      const apiEndpoint = '/api/auth/login-mock';
+      // 実際のLark Base APIを使用
+      const apiEndpoint = '/api/auth/login';
         
       const response = await fetch(apiEndpoint, {
         method: 'POST',
