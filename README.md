@@ -1,102 +1,105 @@
-# AI連携型 高機能シフト管理システム (SHIFTMAKER v3)
+# SHIFTMAKER v3 🚀
 
-Next.jsベースのWebアプリケーションで、Lark Baseをバックエンドデータベースとして使用するシフト管理システムです。
+AI連携型シフト管理システム
 
-## 🚀 機能
+[![CI](https://github.com/IvyGain/shiftmaker-v3/actions/workflows/ci.yml/badge.svg)](https://github.com/IvyGain/shiftmaker-v3/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-### V1.0 MVP (現在実装済み)
-- ✅ **認証システム** - JWTベースのログイン機能
-- ✅ **管理者機能** - シフト枠の作成・管理、手動シフト確定
-- ✅ **従業員機能** - 希望シフト提出、確定シフト確認
-- ✅ **カレンダー表示** - 月表示でのシフト状況確認
-- ✅ **モバイル対応** - レスポンシブデザイン
-- ✅ **モックデータ** - 開発・テスト用のダミーデータ機能
+## 🎯 プロジェクト概要
 
-### 予定機能 (V1.5以降)
-- 🔄 **AIによる自動シフト割り当て**
-- 🔔 **Larkメッセージによる自動通知**
-- 🤖 **AI Botによる自然言語でのシフト調整支援**
+SHIFTMAKER v3は、AI技術を活用した次世代シフト管理システムです。管理者の負担を軽減し、従業員の満足度を向上させる革新的なソリューションを提供します。
+
+## 🗺️ 開発ロードマップ
+
+### 📋 [V1.0 MVP](https://github.com/IvyGain/shiftmaker-v3/milestone/1) - 基本機能 
+*目標: 2025年7月31日*
+
+- [x] 認証システム (JWT + Lark Base)
+- [x] 管理者シフト枠作成機能
+- [x] 従業員希望シフト提出機能  
+- [x] シフト確定機能
+- [x] カレンダー表示機能
+- [ ] [Lark Base連携](https://github.com/IvyGain/shiftmaker-v3/issues/1) 🔥
+- [ ] [スマホファーストUI](https://github.com/IvyGain/shiftmaker-v3/issues/5)
+
+### 🤖 [V1.5 AI連携](https://github.com/IvyGain/shiftmaker-v3/milestone/2) - AI最適化
+*目標: 2025年8月31日*
+
+- [ ] [AI自動最適化エンジン](https://github.com/IvyGain/shiftmaker-v3/issues/7)
+- [ ] [希望マッチング機能](https://github.com/IvyGain/shiftmaker-v3/issues/8)
+- [ ] [シフト提案機能](https://github.com/IvyGain/shiftmaker-v3/issues/9)
+
+### 🚀 V2.0 完全自動化 - 未来のシフト管理
+*目標: 2025年9月30日*
+
+- [ ] 完全自動シフト作成
+- [ ] スマート通知システム
+- [ ] アナリティクス・レポート機能
 
 ## 🛠️ 技術スタック
 
-- **フレームワーク**: Next.js 15 with TypeScript
-- **スタイリング**: Tailwind CSS
-- **認証**: JWT (JSON Web Tokens)
-- **バックエンド**: Next.js API Routes
-- **データベース**: Lark Base (Bitable)
-- **API連携**: Lark OpenAPI SDK (@larksuiteoapi/node-sdk)
+```
+Frontend: Next.js 15 + TypeScript + Tailwind CSS
+Backend:  Lark Base (Bitable) 
+Auth:     JWT
+API:      Next.js API Routes
+Deploy:   Vercel
+```
 
-## 📦 インストール
+## 🚀 クイックスタート
 
 ```bash
-# 依存関係のインストール
+# リポジトリクローン
+git clone https://github.com/IvyGain/shiftmaker-v3.git
+cd shiftmaker-v3
+
+# 依存関係インストール
 npm install
 
-# 開発サーバーの起動
+# 環境変数設定
+cp .env.example .env.local
+# .env.local を編集して Lark Base 認証情報を設定
+
+# 開発サーバー起動
 npm run dev
-
-# 本番ビルド
-npm run build
-
-# リント
-npm run lint
 ```
 
-## ⚙️ 環境設定
+## 📊 現在の進捗状況
 
-`.env.local` ファイルを作成し、以下の環境変数を設定してください：
+### 🔥 高優先度タスク
+1. [Lark Base テーブル作成とデータ投入](https://github.com/IvyGain/shiftmaker-v3/issues/1)
+2. [.env.local ファイルの更新](https://github.com/IvyGain/shiftmaker-v3/issues/2)  
+3. [モックAPIから実際のAPIへの切り替え](https://github.com/IvyGain/shiftmaker-v3/issues/3)
 
-```ini
-# Lark API Authentication
-LARK_APP_ID=your_lark_app_id
-LARK_APP_SECRET=your_lark_app_secret
-
-# Lark Base (Bitable) App
-LARK_BASE_TOKEN=your_lark_base_token
-
-# Table IDs (Lark Baseでテーブル作成後に更新)
-LARK_EMPLOYEES_TABLE_ID=your_employees_table_id
-LARK_SKILLS_TABLE_ID=your_skills_table_id
-LARK_ADMIN_SLOTS_TABLE_ID=your_admin_slots_table_id
-LARK_WISHES_TABLE_ID=your_wishes_table_id
-LARK_FINAL_SHIFTS_TABLE_ID=your_final_shifts_table_id
-
-# JWT Authentication
-JWT_SECRET=your_jwt_secret_key
-
-# Development
-NODE_ENV=development
-```
+### 📈 今後の予定
+- [週次固定シフトテンプレート機能](https://github.com/IvyGain/shiftmaker-v3/issues/4)
+- [スマホファーストUI実装](https://github.com/IvyGain/shiftmaker-v3/issues/5)
+- [スタッフ向けシンプル入力機能](https://github.com/IvyGain/shiftmaker-v3/issues/6)
 
 ## 🧪 テストアカウント
 
-モックデータモードでは以下のアカウントでログインできます：
+```
+管理者: admin@example.com / admin123
+従業員: employee@example.com / employee123
+```
 
-### 管理者アカウント
-- **Email**: admin@example.com
-- **Password**: admin123
+## 📚 ドキュメント
 
-### 従業員アカウント
-- **Email**: employee@example.com
-- **Password**: employee123
+- [プロジェクト管理](./PROJECT.md)
+- [Lark Base セットアップガイド](./docs/lark-base-setup.md)
+- [API仕様書](./docs/api.md) (coming soon)
 
-## 🚦 使用方法
+## 🤝 コントリビューション
 
-### 1. 管理者の操作
-1. 管理者アカウントでログイン
-2. カレンダーで日付を選択
-3. シフト枠を作成（日付、時間、必要人数等を入力）
-4. 従業員からの希望を確認
-5. 希望者をシフトに確定
+1. [Issues](https://github.com/IvyGain/shiftmaker-v3/issues) でタスクを確認
+2. Feature ブランチを作成
+3. 実装・テスト  
+4. [Pull Request](https://github.com/IvyGain/shiftmaker-v3/pulls) 作成
 
-### 2. 従業員の操作
-1. 従業員アカウントでログイン
-2. 日付を選択
-3. 利用可能なシフト枠を確認
-4. 希望するシフトに応募
-5. 確定シフトを確認
+## 📜 ライセンス
+
+MIT License - 詳細は [LICENSE](./LICENSE) を参照
 
 ---
 
-**開発状況**: V1.0 MVP 完成 🎉  
-**次のマイルストーン**: Lark Base連携とAI機能実装
+**🎯 次のマイルストーン**: [V1.0 MVP完成](https://github.com/IvyGain/shiftmaker-v3/milestone/1) まで残り24日
